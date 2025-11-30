@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add person</title>
+    <style>
+        form { max-width: 400px; margin: 20px; }
+        label { display: block; margin: 10px 0 5px; }
+        input { width: 100%; padding: 8px; margin-bottom: 10px; }
+        input[type="submit"] {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            width: auto;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<h2>Add New Person</h2>
+
+<form th:method="POST" th:action="@{/people}" th:object="${person}">
+    <!-- Используем th:field для правильного binding -->
+    <label for="firstname">Firstname</label>
+    <input type="text" th:field="*{firstname}" id="firstname"/>
+    <div style="color: red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></div>
+
+    <label for="lastname">Lastname</label>
+    <input type="text" th:field="*{lastname}" id="lastname"/>
+    <div style="color: red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
+
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+    <input type="submit" value="ADD PERSON">
+</form>
+</body>
+</html>

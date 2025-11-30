@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Person</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { max-width: 400px; }
+        label { display: block; margin: 10px 0 5px; font-weight: bold; }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover { background: #45a049; }
+        .error { color: red; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+<h2>Edit Person</h2>
+
+<form th:method="PATCH" th:action="@{/people/{id}(id=${person.id})}" th:object="${person}">
+    <label for="firstname">Firstname</label>
+    <input type="text" th:field="*{firstname}" id="firstname"/>
+    <div style="color: red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></div>
+
+    <label for="lastname">Lastname</label>
+    <input type="text" th:field="*{lastname}" id="lastname"/>
+    <div style="color: red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
+
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+    <input type="submit" value="Update">
+</form>
+</body>
+</html>

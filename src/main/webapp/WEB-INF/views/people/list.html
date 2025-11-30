@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All People</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { color: #333; }
+        .person-list {
+            max-width: 500px;
+            margin: 20px 0;
+        }
+        .person-item {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+        .person-link {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .person-link:hover { color: #0056b3; text-decoration: underline; }
+        .action-links {
+            margin: 30px 0;
+        }
+        .action-btn {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .action-btn:hover { background: #218838; }
+        .secondary-btn {
+            background: #6c757d;
+        }
+        .secondary-btn:hover { background: #545b62; }
+    </style>
+</head>
+<body>
+<h2>People Directory</h2>
+
+<div class="person-list">
+    <div th:each="p : ${people}" class="person-item">
+        <a class="person-link" th:href="@{/people/{id}(id=${p.id})}"
+           th:text="${p.firstname + ' ' + p.lastname}">Name</a>
+    </div>
+</div>
+
+<div class="action-links">
+    <a class="action-btn" href="/people/new">Add New Person</a>
+    <a class="action-btn secondary-btn" href="/test-batch">Add 1000 People (Test)</a>
+</div>
+
+<div>
+    <a href="/">← Back to Home</a>
+</div>
+</body>
+</html>
