@@ -3,6 +3,15 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+database.properties
+*/database.properties
+**/database.properties
+
+application.properties
+application.yml
+*.key
+*.p12
+*.jks
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
@@ -36,3 +45,18 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+
+
+
+# Добавляем шаблон настроек
+git add database.properties.origin
+
+# Добавляем обновленный .gitignore
+git add .gitignore
+
+# Коммитим
+git commit -m "Add database template and ignore local config"
+
+# Пушим
+git push
