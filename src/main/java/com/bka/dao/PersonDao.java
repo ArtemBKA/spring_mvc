@@ -1,100 +1,71 @@
 package com.bka.dao;
 
 import com.bka.entity.Person;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
-@Component
+@Repository
+@Transactional
 public class PersonDao {
-    JdbcTemplate template;
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    public PersonDao(JdbcTemplate template) {
-        this.template = template;
+    public PersonDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-
-    public Person getPerson(Long id) {
-        return template.query("select * from person where id = ?", new Object[]{id}
-                        , new BeanPropertyRowMapper<>(Person.class))
-                .stream()
-                .findAny()
-                .orElseThrow(NoSuchElementException::new);
+    @Transactional(readOnly = true)
+    public Optional<Person> getPerson(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return Optional.of(session.get(Person.class, id));
     }
 
+    @Transactional(readOnly = true)
     public List<Person> getAllPeople() {
-        return template.query("select * from person", new BeanPropertyRowMapper<>(Person.class));
+        Session session = sessionFactory.getCurrentSession();
+        Query<Person> query = session.createQuery("FROM Person", Person.class);
+        return query.getResultList();
     }
 
-    public void addPerson(Person person) {
-        template.update("insert into person(firstname, lastname, email, password) values(?, ?, ?, ?)"
-                , person.getFirstname(), person.getLastname(), person.getEmail(), person.getPassword());
+    @Transactional
+    public Long addPerson(Person person) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Long) session.save(person);
     }
 
+    @Transactional
     public void updatePerson(Long id, Person person) {
-        template.update("update person set firstname=?, lastname=?, email=? where id=?", person.getFirstname(), person.getLastname(), person.getEmail(), id);
-    }
-
-    public void removePerson(Long id) {
-        template.update("delete from person where id=?", id);
-    }
-
-    public void with(){
-        List<Person> people = getOneThousenPeople();
-
-        long start = System.currentTimeMillis();
-        template.batchUpdate("INSERT INTO person (firstname, lastname, email, password) values (?, ?, ?, ?)"
-                , new BatchPreparedStatementSetter() {
-                @Override
-                public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
-                    preparedStatement.setString(1, people.get(i).getFirstname());
-                    preparedStatement.setString(2, people.get(i).getLastname());
-                    preparedStatement.setString(3, people.get(i).getEmail());
-                    preparedStatement.setString(4, people.get(i).getPassword());
-                }
-
-                @Override
-                public int getBatchSize() {
-                    return people.size();
-                }
-            });
-        System.out.println(System.currentTimeMillis() - start);
-    }
-
-    public void without(){
-        long start = System.currentTimeMillis();
-        List<Person> people = getOneThousenPeople();
-        people.forEach(this::addPerson);
-        System.out.println(System.currentTimeMillis() - start);
-    }
-
-    private List<Person> getOneThousenPeople() {
-        List<Person> people = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) {
-            people.add(
-                    Person.builder()
-                            .firstname("name_"+i)
-                            .lastname("lastname_"+i)
-                            .email(i+"aaa@email.com")
-                            .password("password_111"+i)
-                            .build()
-            );
+        Session session = sessionFactory.getCurrentSession();
+        Person p = session.get(Person.class, id);
+        if (p != null) {
+            p.setFirstname(person.getFirstname());
+            p.setLastname(person.getLastname());
+            p.setEmail(person.getEmail());
         }
-        return people;
     }
 
+    @Transactional
+    public void removePerson(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Person p = session.get(Person.class, id);
+        if (p != null) {
+            session.delete(p);
+        }
+    }
+
+
+    @Transactional(readOnly = true)
     public Optional<Person> getPersonByEmail(String email) {
-        return template.query("SELECT * FROM person where email=?"
-                , new Object[]{email}
-                , new BeanPropertyRowMapper<>(Person.class))
-                .stream().findAny();
+        Session session = sessionFactory.getCurrentSession();
+        Query<Person> query = session.createQuery("from Person where email = :email", Person.class);
+        query.setParameter("email", email);
+        return query.uniqueResultOptional();
     }
 }

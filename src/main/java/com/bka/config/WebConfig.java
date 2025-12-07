@@ -66,16 +66,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.viewResolver(viewResolver());
     }
 
-    @Bean
-    public DataSource getDataSource() {
-        DriverManagerDataSource dataSource
-                = new DriverManagerDataSource();
-        dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("driver")));
-        dataSource.setUrl(environment.getProperty("url"));
-        dataSource.setUsername(environment.getProperty("user"));
-        dataSource.setPassword(environment.getProperty("pass"));
-        return dataSource;
-    }
 
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {

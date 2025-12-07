@@ -24,14 +24,15 @@ public class PersonService {
 
     public List<PersonDto> getAllPeople() {
          List<Person> list = personDao.getAllPeople();
-         return list.stream().filter(p -> p.getPassword().contains("111"))
+         return list.stream()
+//                 .filter(p -> p.getPassword().contains("111"))
                  .map(this::personToDto)
                  .collect(Collectors.toList());
    }
 
     public PersonDto getPerson(Long id) {
-        Person p = personDao.getPerson(id);
-        return personToDto(p);
+        Optional<Person> p = personDao.getPerson(id);
+        return personToDto(p.get());
     }
 
     public void updatePerson(Long id, PersonDto dto) {
