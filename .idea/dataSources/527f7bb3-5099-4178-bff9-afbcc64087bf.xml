@@ -3,9 +3,9 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <IntrospectionStateNumber>3864</IntrospectionStateNumber>
+      <IntrospectionStateNumber>3938</IntrospectionStateNumber>
       <ServerVersion>18.1</ServerVersion>
-      <StartupTime>1764306528</StartupTime>
+      <StartupTime>1765036982</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -802,7 +802,7 @@ false Zulu
 14759||10|C|G
 14759||-9223372036854775808|U|G
 14759||10|U|G</Grants>
-      <IntrospectionStateNumber>3864</IntrospectionStateNumber>
+      <IntrospectionStateNumber>3938</IntrospectionStateNumber>
       <ObjectId>5</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4317,23 +4317,23 @@ false Zulu
     <schema id="271" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>3864</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2025-11-30.01:19:27</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>3938</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2025-12-08.07:11:03</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>546</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
     <sequence id="272" parent="271" name="person_id_seq">
-      <ObjectId>16433</ObjectId>
+      <ObjectId>24605</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>2833</StateNumber>
+      <StateNumber>3937</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
     <table id="273" parent="271" name="person">
-      <ObjectId>16434</ObjectId>
-      <StateNumber>3863</StateNumber>
+      <ObjectId>24606</ObjectId>
+      <StateNumber>3937</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4341,53 +4341,52 @@ false Zulu
       <IdentityKind>by-default</IdentityKind>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>2833</StateNumber>
+      <StateNumber>3937</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>16433</SequenceId>
+      <SequenceId>24605</SequenceId>
       <TypeId>23</TypeId>
     </column>
     <column id="275" parent="273" name="firstname">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>2833</StateNumber>
+      <StateNumber>3937</StateNumber>
       <StoredType>varchar|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="276" parent="273" name="lastname">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>2833</StateNumber>
+      <StateNumber>3937</StateNumber>
       <StoredType>varchar|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="277" parent="273" name="email">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>2833</StateNumber>
+      <StateNumber>3937</StateNumber>
       <StoredType>varchar|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="278" parent="273" name="password">
-      <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>2833</StateNumber>
+      <StateNumber>3937</StateNumber>
       <StoredType>varchar|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <index id="279" parent="273" name="person_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16444</ObjectId>
+      <ObjectId>24615</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>3863</StateNumber>
+      <StateNumber>3937</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <index id="280" parent="273" name="person_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16446</ObjectId>
-      <StateNumber>3863</StateNumber>
+      <ObjectId>24617</ObjectId>
+      <StateNumber>3937</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
@@ -4396,16 +4395,16 @@ false Zulu
     </index>
     <key id="281" parent="273" name="person_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16445</ObjectId>
+      <ObjectId>24616</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>2833</StateNumber>
-      <UnderlyingIndexId>16444</UnderlyingIndexId>
+      <StateNumber>3937</StateNumber>
+      <UnderlyingIndexId>24615</UnderlyingIndexId>
     </key>
     <key id="282" parent="273" name="person_email_key">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16447</ObjectId>
-      <StateNumber>2833</StateNumber>
-      <UnderlyingIndexId>16446</UnderlyingIndexId>
+      <ObjectId>24618</ObjectId>
+      <StateNumber>3937</StateNumber>
+      <UnderlyingIndexId>24617</UnderlyingIndexId>
     </key>
   </database-model>
 </dataSource>
