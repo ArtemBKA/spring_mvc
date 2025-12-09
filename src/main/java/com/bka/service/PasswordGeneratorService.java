@@ -1,18 +1,18 @@
 package com.bka.service;
 
+import java.security.SecureRandom;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PasswordGeneratorService {
     public String generatePassword() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+        SecureRandom random = new SecureRandom();
         StringBuilder password = new StringBuilder();
+
         for (int i = 0; i < 20; i++) {
-            int r = (int) (Math.random() * 57) + 65;
-            if (r % 2 == 0) {
-                password.append((char) r);
-            } else {
-                password.append(r);
-            }
+            int index = random.nextInt(chars.length());
+            password.append(chars.charAt(index));
         }
         return password.toString();
     }
